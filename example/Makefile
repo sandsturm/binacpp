@@ -1,7 +1,3 @@
-
-
-
-
 libcurl_dir=../lib/libcurl-7.56.0
 libcurl_include=${libcurl_dir}/include
 libcurl_lib=${libcurl_dir}/lib
@@ -32,5 +28,3 @@ libbinacpp_lib=${libbinacpp_dir}/lib
 
 	cat run.template.sh  | sed s/%executable%/$@/ > $@.run.sh
 	chmod 755 $@.run.sh
-
-

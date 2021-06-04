@@ -58,13 +58,15 @@ set(EXEC binancecpp)
 # set the C++14 standard
 set( CMAKE_CXX_STANDARD 11 )
 
-
 # puts all .cpp files inside src to the SOURCES_FILES variable
 FILE( GLOB SOURCES_FILES src/*.cpp )
+FILE( GLOB EXAMPLE_FILES example/*.cpp )
 # FILE( GLOB TEST_FILES tests/*.cpp )
 
+# --------------------------------
+# Build the library
+# --------------------------------
 include(GNUInstallDirs)
-
 
 # compiles the files defined by SOURCES_FILES to generante the executable defined by EXEC
 # add_executable( ${EXEC} ${SOURCES_FILES} )
@@ -76,10 +78,19 @@ set_target_properties(binancecpp PROPERTIES PUBLIC_HEADER include/libbinacpp.h)
 # I../includes
 # target_include_directories(binancecpp PRIVATE include)
 target_include_directories(binancecpp PRIVATE src)
+include_directories(lib/libbinacpp/include/)
 
 install(TARGETS binancecpp
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+# --------------------------------
+# Build the examples
+# --------------------------------
+# compiles the files defined by SOURCES_FILES to generante the executable defined by EXEC
+add_executable( example ${EXAMPLE_FILES} )
+target_link_libraries( example ${CURLPP_LIBRARIES} ${JSONCPP_LIBRARY} ${LIBWEBSOCKETS_LIBRARY} ${OPENSSL_LIBRARY} )
+
 
 # target_link_libraries( ${EXEC} ${CURLPP_LIBRARIES} ${jsoncpp_LIBRARY} ${LIBWEBSOCKETS_LIBRARIES} OpenSSL::SSL )
 
