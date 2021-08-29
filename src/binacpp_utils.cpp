@@ -10,7 +10,7 @@ void split_string( string &s, char delim, vector <string> &result) {
     while (std::getline(ss, item, delim)) {
         result.push_back(item);
     }
-    
+
 }
 
 
@@ -43,7 +43,7 @@ bool replace_string( string& str, const char *from, const char *to) {
 
 //-----------------------
 void string_toupper( string &src) {
-    for ( int i = 0 ; i < src.size() ; i++ ) {
+    for ( unsigned int i = 0 ; i < src.size() ; i++ ) {
         src[i] = toupper(src[i]);
     }
 }
@@ -51,7 +51,7 @@ void string_toupper( string &src) {
 //------------------
 string string_toupper( const char *cstr ) {
     string ret;
-    for ( int i = 0 ; i < strlen( cstr ) ; i++ ) {
+    for ( unsigned int i = 0 ; i < strlen( cstr ) ; i++ ) {
         ret.push_back( toupper(cstr[i]) );
     }
     return ret;
@@ -77,7 +77,7 @@ string b2a_hex( char *byte_arr, int n ) {
 time_t get_current_epoch( ) {
 
     struct timeval tv;
-    gettimeofday(&tv, NULL); 
+    gettimeofday(&tv, NULL);
 
     return tv.tv_sec ;
 }
@@ -86,7 +86,7 @@ time_t get_current_epoch( ) {
 unsigned long get_current_ms_epoch( ) {
 
     struct timeval tv;
-    gettimeofday(&tv, NULL); 
+    gettimeofday(&tv, NULL);
 
     return tv.tv_sec * 1000 + tv.tv_usec / 1000 ;
 
@@ -96,9 +96,9 @@ unsigned long get_current_ms_epoch( ) {
 string hmac_sha256( const char *key, const char *data) {
 
     unsigned char* digest;
-    digest = HMAC(EVP_sha256(), key, strlen(key), (unsigned char*)data, strlen(data), NULL, NULL);    
+    digest = HMAC(EVP_sha256(), key, strlen(key), (unsigned char*)data, strlen(data), NULL, NULL);
     return b2a_hex( (char *)digest, 32 );
-}   
+}
 
 //------------------------------
 string sha256( const char *data ) {
@@ -109,5 +109,5 @@ string sha256( const char *data ) {
     SHA256_Update(&sha256, data, strlen(data) );
     SHA256_Final(digest, &sha256);
     return b2a_hex( (char *)digest, 32 );
-    
+
 }

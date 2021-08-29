@@ -22,7 +22,7 @@ map <struct lws *,CB> BinaCPP_websocket::handles ;
 
 
 //--------------------------
-int 
+int
 BinaCPP_websocket::event_cb( struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len )
 {
 
@@ -33,7 +33,7 @@ BinaCPP_websocket::event_cb( struct lws *wsi, enum lws_callback_reasons reason, 
 			break;
 
 		case LWS_CALLBACK_CLIENT_RECEIVE:
-			
+
 			/* Handle incomming messages here. */
 			try {
 
@@ -41,7 +41,7 @@ BinaCPP_websocket::event_cb( struct lws *wsi, enum lws_callback_reasons reason, 
 
 				string str_result = string( (char*)in );
 				Json::Reader reader;
-				Json::Value json_result;	
+				Json::Value json_result;
 				reader.parse( str_result , json_result );
 
 				if ( handles.find( wsi ) != handles.end() ) {
@@ -49,8 +49,8 @@ BinaCPP_websocket::event_cb( struct lws *wsi, enum lws_callback_reasons reason, 
 				}
 
 			} catch ( exception &e ) {
-		 		BinaCPP_logger::write_log( "<BinaCPP_websocket::event_cb> Error ! %s", e.what() ); 
-			}   	
+		 		BinaCPP_logger::write_log( "<BinaCPP_websocket::event_cb> Error ! %s", e.what() );
+			}
 			break;
 
 		case LWS_CALLBACK_CLIENT_WRITEABLE:
@@ -74,8 +74,8 @@ BinaCPP_websocket::event_cb( struct lws *wsi, enum lws_callback_reasons reason, 
 
 
 //-------------------
-void 
-BinaCPP_websocket::init( ) 
+void
+BinaCPP_websocket::init( )
 {
 	struct lws_context_creation_info info;
 	memset( &info, 0, sizeof(info) );
@@ -93,17 +93,17 @@ BinaCPP_websocket::init( )
 //----------------------------
 // Register call backs
 void
-BinaCPP_websocket::connect_endpoint ( 
+BinaCPP_websocket::connect_endpoint (
 
 		CB cb,
 		const char *path
 
-	) 
+	)
 {
 	char ws_path[1024];
 	strcpy( ws_path, path );
-	
-	
+
+
 	/* Connect if we are not connected to the server. */
 	struct lws_client_connect_info ccinfo = {0};
 	ccinfo.context 	= context;
@@ -124,19 +124,17 @@ BinaCPP_websocket::connect_endpoint (
 
 //----------------------------
 // Entering event loop
-void 
-BinaCPP_websocket::enter_event_loop() 
+void
+BinaCPP_websocket::enter_event_loop()
 {
 	while( 1 )
-	{	
-		try {	
+	{
+		try {
 			lws_service( context, 500 );
 		} catch ( exception &e ) {
-		 	BinaCPP_logger::write_log( "<BinaCPP_websocket::enter_event_loop> Error ! %s", e.what() ); 
+		 	BinaCPP_logger::write_log( "<BinaCPP_websocket::enter_event_loop> Error ! %s", e.what() );
 		 	break;
 		}
 	}
 	lws_context_destroy( context );
 }
-
-
