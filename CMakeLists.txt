@@ -71,7 +71,6 @@ include(GNUInstallDirs)
 add_library(binancecpp SHARED ${SOURCES_FILES} )
 
 set_target_properties(binancecpp PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(binancecpp PROPERTIES PUBLIC_HEADER include/libbinacpp.h)
 
 # I../includes
 # target_include_directories(binancecpp PRIVATE include)
