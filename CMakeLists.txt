@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.5.1)
 
 # project name
-project(binancecpp VERSION 0.8.2 DESCRIPTION "Binance APIs c++ dependencies")
+project(binancecpp VERSION 0.8.3 DESCRIPTION "Binance APIs c++ dependencies")
 
 # set (CMAKE_C_COMPILER             "/usr/bin/clang")
 set (CMAKE_C_COMPILER             "/usr/bin/gcc")
@@ -71,8 +71,8 @@ set_target_properties(binancecpp PROPERTIES VERSION ${PROJECT_VERSION})
 #   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 #   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(TARGETS binancecpp
-LIBRARY DESTINATION /usr/lib)
+install(TARGETS binancecpp LIBRARY DESTINATION /usr/lib)
+install(FILES binance.h DESTINATION include)
 
 # target_link_libraries( ${EXEC} ${CURLPP_LIBRARIES} ${jsoncpp_LIBRARY} ${LIBWEBSOCKETS_LIBRARIES} OpenSSL::SSL )
 

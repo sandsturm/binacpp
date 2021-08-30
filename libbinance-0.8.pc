@@ -1,0 +1,13 @@
+prefix=/usr
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+exec_prefix=${prefix}
+
+Name: libbinance
+Description: Binance C++ API
+Version: 0.8.3
+Requires: CURLpp, jsoncpp, LibWebsockets, OpenSSL
+Requires.private:
+Libs:
+Cflags: -I${includedir}/libbinance-0.8
