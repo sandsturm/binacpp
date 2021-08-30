@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.5.1)
 
 # project name
-project(binancecpp VERSION 0.5.0 DESCRIPTION "Binance APIs c++ dependencies")
+project(binancecpp VERSION 0.8.2 DESCRIPTION "Binance APIs c++ dependencies")
 
 # set (CMAKE_C_COMPILER             "/usr/bin/clang")
 set (CMAKE_C_COMPILER             "/usr/bin/gcc")
@@ -51,10 +51,6 @@ include_directories(${LIBWEBSOCKETS_INCLUDE_DIRS})
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIRS})
 
-
-# creates the variable EXEC and sets it to hello
-set(EXEC binancecpp)
-
 # set the C++14 standard
 set( CMAKE_CXX_STANDARD 11 )
 
@@ -65,20 +61,18 @@ FILE( GLOB SOURCES_FILES src/*.cpp )
 
 include(GNUInstallDirs)
 
-
 # compiles the files defined by SOURCES_FILES to generante the executable defined by EXEC
 # add_executable( ${EXEC} ${SOURCES_FILES} )
 add_library(binancecpp SHARED ${SOURCES_FILES} )
 
 set_target_properties(binancecpp PROPERTIES VERSION ${PROJECT_VERSION})
 
-# I../includes
-# target_include_directories(binancecpp PRIVATE include)
-target_include_directories(binancecpp PRIVATE src)
+# install(TARGETS binancecpp
+#   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#   PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 install(TARGETS binancecpp
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+LIBRARY DESTINATION /usr/lib)
 
 # target_link_libraries( ${EXEC} ${CURLPP_LIBRARIES} ${jsoncpp_LIBRARY} ${LIBWEBSOCKETS_LIBRARIES} OpenSSL::SSL )
 
